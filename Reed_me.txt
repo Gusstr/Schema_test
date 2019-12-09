@@ -1,0 +1,4 @@
+I programmet ska man kunna bok arbets schift aom läggs ut av arbetsgivaren i programmet.
+Användaren ska även kunna vara kopplad till olika arbetsplatser och att starta ett konto ska vara smidigt. 
+Det ska eventuellt finnas en punch in program som ska stå på vid arbetsplatsen. 
+Jag kommer lösa detta med en MySql databas som ska spara tider och liknande i tabeller.
