@@ -27,14 +27,22 @@ Do = input("ny användare /nyanv, login /login, ny admin /nyadmin: ")
 if Do == "/nyanv":
   newfirstname = input("Förnamnamn: ")
   newlastname = input("Efternamn: ")
+  newmailuser = input("Mail: ")
   newpassword = input("nytt password: ")
-  quinyx_Functions.new_user(newfirstname, newlastname, newpassword)
+  Mailresult = quinyx_Functions.check_mail(newmailuser)
+  if Mailresult == 1:
+    quinyx_Functions.new_user(newfirstname, newlastname, newpassword, newmailuser)
+  else:
+    print("ogiltig mail")
 elif Do == "/nyadmin":
   newadminfirstname = input("Förnamnamn: ")
   newadminlastname = input("Efternamn: ")
   newadminpassword = input("nytt password: ")
   newcompanyname = input("Företagsnamn: ")
   quinyx_Functions.new_admin(newadminfirstname, newadminlastname, newadminpassword, newcompanyname)
+elif Do == "/login":
+  loginusermail = input("mail adress: ") 
+  loginuserpassword = input("lösenord: ")
 elif Do == "/loginadmin":
   adminCname = input("Företagsnamn: ")
   adminpassword = input("lösenord: ")
@@ -44,13 +52,18 @@ elif Do == "/loginadmin":
   elif Result == 1:
     print ("inloggad")
     print(quinyx_Functions.show_schema(adminCname))
-    Do1 = input("lägg till /till: ")
+    Do1 = input("lägg till /till, lägg till arbetare /ny: ")
     if Do1 == "/till":
       Ldag = input("dag: ")
       Ltid = input("tid: ")
       Ljobb = input("vad ska göras: ")
       quinyx_Functions.insert_schema(Ldag, Ltid, Ljobb)
-    
+    elif Do1 == "/ny":
+      FindP = input("sök efter id: ")
+      print(quinyx_Functions.find_user(FindP))
+      Ans = input("lägg till /ok: ")
+      if Ans == "/ok":
+        quinyx_Functions.add_user(FindP)
 
 
   
