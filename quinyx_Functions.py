@@ -31,8 +31,6 @@ def check_mail(A):
       MailOK = 0
   return(MailOK)
       
-  
-
 def new_admin(A, B, C, D):
     insertname = A + "_" + B
     mycursor = mydb.cursor()
@@ -46,40 +44,73 @@ def new_admin(A, B, C, D):
     mycursor.execute(sql)
     mydb.commit()
 
+def loginuser(A, B):
+  mycursor = mydb.cursor()
+  sql = "SELECT password FROM User_Account WHERE mail ='{}'".format(A)
+  mycursor.execute(sql)
+  myresult = mycursor.fetchall()
+  clean_result = ""
+  for x in myresult:
+    passwordU = clean_result + x[0] 
+    
+  if passwordU == B:
+    X = 1
+  else:
+    X = 0
+  mydb.commit()
+  return(X)
+
+def show_schemaU(A):
+  mycursor = mydb.cursor()
+  sql = "SELECT workingplace FROM user_account WHERE mail='{}'".format(A)
+  mycursor.execute(sql)
+  myresult = mycursor.fetchall()
+  clean_result = ""
+  for x in myresult:
+    Wplace = clean_result + x[0]
+  ShowSchema = Wplace + "_schema"
+  mycursor = mydb.cursor(buffered=True)
+  sql = "SELECT * FROM {}".format(ShowSchema)
+  mycursor.execute(sql)
+  mydb.commit() 
+  myresult = mycursor.fetchall()
+  #for x in myresult:
+  #  return x
+  return myresult
+
 def loginadmin(A, B):
   mycursor = mydb.cursor()
   sql = "SELECT password FROM admin_account WHERE companyname = %s"
   Cname = (A, )
   mycursor.execute(sql, Cname)
-
-
   myresult = mycursor.fetchall()
-  
   clean_result = ""
   for x in myresult:
     password = clean_result + x[0]
-  
+  mydb.commit()
   if password == B:
     I = 1
   else:
-    I = 0
-  mydb.commit()    
+    I = 0   
   return(I)
 
 def show_schema(A):
   global nameC
-  nameC = A + "_schema"
+  global nameCSchema
+  nameC = A
+  nameCSchema = A + "_schema"
   mycursor = mydb.cursor(buffered=True)
-  sql = "SELECT * FROM {}".format(nameC)
+  sql = "SELECT * FROM {}".format(nameCSchema)
   mycursor.execute(sql)
   mydb.commit() 
   myresult = mycursor.fetchall()
-  for x in myresult:
-    return x
+  #for x in myresult:
+  #  return x
+  return myresult
 
 def insert_schema(A, B, C):
   mycursor = mydb.cursor()
-  sql = "INSERT INTO {} (date, time, work) VALUES (%s, %s, %s)".format(nameC)
+  sql = "INSERT INTO {} (date, time, work) VALUES (%s, %s, %s)".format(nameCSchema)
   val = (A, B, C)
   mycursor.execute(sql, val)
   mydb.commit()  

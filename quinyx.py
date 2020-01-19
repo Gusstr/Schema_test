@@ -43,6 +43,12 @@ elif Do == "/nyadmin":
 elif Do == "/login":
   loginusermail = input("mail adress: ") 
   loginuserpassword = input("lösenord: ")
+  resultUser = quinyx_Functions.loginuser(loginusermail, loginuserpassword)
+  if resultUser == 0:
+    print("fel inloggning")
+  elif resultUser == 1:
+    print("inloggad")
+    print(quinyx_Functions.show_schemaU(loginusermail))
 elif Do == "/loginadmin":
   adminCname = input("Företagsnamn: ")
   adminpassword = input("lösenord: ")
